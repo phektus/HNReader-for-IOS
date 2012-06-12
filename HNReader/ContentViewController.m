@@ -57,12 +57,10 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)dismiss:(id)sender {
+- (IBAction)dismiss:(id)sender 
+{
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"url"];
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction)reload:(id)sender {
-    [wView reload];
-}
 @end

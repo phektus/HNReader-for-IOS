@@ -30,25 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"Hacker News";
-    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonSystemItemAdd target:self action:@selector(loadContent)];
-    self.navigationItem.rightBarButtonItem = reloadButton;
-    [self loadContent];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)loadContent
-{
+    
     posts = [[NSMutableArray alloc] init];
     links = [[NSMutableArray alloc] init];
     SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -61,6 +43,18 @@
         [posts addObject:[item objectForKey:@"title"]];
         [links addObject:[item objectForKey:@"url"]];
     }
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - Table view data source

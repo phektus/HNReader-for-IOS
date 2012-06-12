@@ -16,6 +16,5 @@
 @property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
 
 - (IBAction)dismiss:(id)sender;
-- (IBAction)reload:(id)sender;
 
 @end
