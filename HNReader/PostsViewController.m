@@ -81,4 +81,12 @@
     return cell;
 }
 
+#pragma mark - Table view delegate
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"HN Post" message:[posts objectAtIndex:indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [myAlert show];
+}
+
 @end
