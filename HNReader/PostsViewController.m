@@ -28,16 +28,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.navigationItem.title = @"Hacker News";
     
     posts = [[NSMutableArray alloc] init];
     links = [[NSMutableArray alloc] init];
+    
+    // retrieve the titles
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.ihackernews.com/page"]];
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
     NSDictionary *json_data = [parser objectWithString:json_string error:nil];
+    
+    // update posts and links array
     for (NSDictionary *item in [json_data objectForKey:@"items"])
     {
         [posts addObject:[item objectForKey:@"title"]];

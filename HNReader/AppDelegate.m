@@ -21,7 +21,11 @@
     [self.window makeKeyAndVisible];
     
     nc = [[UINavigationController alloc] init];
+    [nc.navigationBar setTintColor:[UIColor orangeColor]];
+    
     PostsViewController *pvc = [[PostsViewController alloc] init];
+    pvc.navigationItem.title = @"Hacker News";
+    
     [nc pushViewController:pvc animated:YES];
     [self.window addSubview:nc.view];
     
