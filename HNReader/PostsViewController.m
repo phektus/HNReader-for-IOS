@@ -29,17 +29,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"Hacker News";
-    
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.ihackernews.com/page"]];
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-    NSDictionary *json_data = [parser objectWithString:json_string error:nil];
-    posts = [[NSMutableArray alloc] init];
-    for (NSDictionary *item in [json_data objectForKey:@"items"])
-    {
-        [posts addObject:[item objectForKey:@"title"]];
-    }
+    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"reload" style:UIBarButtonSystemItemAdd target:self action:@selector(loadContent)];
+    self.navigationItem.leftBarButtonItem = reloadButton;
+    [self loadContent];
 }
 
 - (void)viewDidUnload
@@ -52,6 +44,22 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)loadContent
+{
+    posts = [[NSMutableArray alloc] init];
+    links = [[NSMutableArray alloc] init];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.ihackernews.com/page"]];
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSDictionary *json_data = [parser objectWithString:json_string error:nil];
+    for (NSDictionary *item in [json_data objectForKey:@"items"])
+    {
+        [posts addObject:[item objectForKey:@"title"]];
+        [links addObject:[item objectForKey:@"url"]];
+    }
 }
 
 #pragma mark - Table view data source
@@ -85,7 +93,7 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"HN Post" message:[posts objectAtIndex:indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:[posts objectAtIndex:indexPath.row] message:[links objectAtIndex:indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [myAlert show];
 }
 
