@@ -7,6 +7,7 @@
 //
 
 #import "PostsViewController.h"
+#import "ContentViewController.h"
 #import "SBJson.h"
 
 @interface PostsViewController ()
@@ -29,8 +30,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"Hacker News";
-    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"reload" style:UIBarButtonSystemItemAdd target:self action:@selector(loadContent)];
-    self.navigationItem.leftBarButtonItem = reloadButton;
+    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonSystemItemAdd target:self action:@selector(loadContent)];
+    self.navigationItem.rightBarButtonItem = reloadButton;
     [self loadContent];
 }
 
@@ -93,8 +94,13 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:[posts objectAtIndex:indexPath.row] message:[links objectAtIndex:indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [myAlert show];
+    // save the url data
+    [[NSUserDefaults standardUserDefaults] setObject:[posts objectAtIndex:indexPath.row] forKey:@"title"];
+    [[NSUserDefaults standardUserDefaults] setObject:[links objectAtIndex:indexPath.row] forKey:@"url"];
+    
+    // load the view
+    ContentViewController *cvc = [[ContentViewController alloc] init];
+    [self presentModalViewController:cvc animated:YES];
 }
 
 @end
