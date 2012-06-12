@@ -27,6 +27,8 @@
 		91658427158761A200465EA0 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 91658419158761A200465EA0 /* SBJsonTokeniser.m */; };
 		91658428158761A200465EA0 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 9165841B158761A200465EA0 /* SBJsonUTF8Stream.m */; };
 		91658429158761A200465EA0 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9165841D158761A200465EA0 /* SBJsonWriter.m */; };
+		91905DBE1587A877008A2EC8 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91905DBC1587A877008A2EC8 /* ContentViewController.m */; };
+		91905DBF1587A877008A2EC8 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91905DBD1587A877008A2EC8 /* ContentViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,9 @@
 		9165841B158761A200465EA0 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		9165841C158761A200465EA0 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		9165841D158761A200465EA0 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		91905DBB1587A877008A2EC8 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
+		91905DBC1587A877008A2EC8 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
+		91905DBD1587A877008A2EC8 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +125,9 @@
 				916583E515875E9800465EA0 /* Supporting Files */,
 				916583FF15875F1200465EA0 /* PostsViewController.h */,
 				9165840015875F1200465EA0 /* PostsViewController.m */,
+				91905DBB1587A877008A2EC8 /* ContentViewController.h */,
+				91905DBC1587A877008A2EC8 /* ContentViewController.m */,
+				91905DBD1587A877008A2EC8 /* ContentViewController.xib */,
 				9165840115875F1200465EA0 /* PostsViewController.xib */,
 			);
 			path = HNReader;
@@ -220,6 +228,7 @@
 			files = (
 				916583E915875E9800465EA0 /* InfoPlist.strings in Resources */,
 				9165840315875F1200465EA0 /* PostsViewController.xib in Resources */,
+				91905DBF1587A877008A2EC8 /* ContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +254,7 @@
 				91658427158761A200465EA0 /* SBJsonTokeniser.m in Sources */,
 				91658428158761A200465EA0 /* SBJsonUTF8Stream.m in Sources */,
 				91658429158761A200465EA0 /* SBJsonWriter.m in Sources */,
+				91905DBE1587A877008A2EC8 /* ContentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

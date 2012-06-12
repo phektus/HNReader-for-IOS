@@ -30,7 +30,6 @@
     [super viewDidLoad];
     
     posts = [[NSMutableArray alloc] init];
-    links = [[NSMutableArray alloc] init];
     
     // retrieve the titles
     SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -42,8 +41,10 @@
     // update posts and links array
     for (NSDictionary *item in [json_data objectForKey:@"items"])
     {
-        [posts addObject:[item objectForKey:@"title"]];
-        [links addObject:[item objectForKey:@"url"]];
+        NSMutableDictionary *post = [[NSMutableDictionary alloc] init];
+        [post setObject:[item objectForKey:@"title"] forKey:@"title"];
+        [post setObject:[item objectForKey:@"url"] forKey:@"url"];
+        [posts addObject:post];
     }
 }
 
@@ -80,7 +81,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [posts objectAtIndex:indexPath.row];
+    NSMutableDictionary *post = [posts objectAtIndex:indexPath.row];
+    cell.textLabel.text = [post objectForKey:@"title"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -91,8 +93,8 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     // save the url data
-    [[NSUserDefaults standardUserDefaults] setObject:[posts objectAtIndex:indexPath.row] forKey:@"title"];
-    [[NSUserDefaults standardUserDefaults] setObject:[links objectAtIndex:indexPath.row] forKey:@"url"];
+    NSMutableDictionary *post = [posts objectAtIndex:indexPath.row];
+    [[NSUserDefaults standardUserDefaults] setObject:[post objectForKey:@"url"] forKey:@"url"];
     
     // load the view
     ContentViewController *cvc = [[ContentViewController alloc] init];
