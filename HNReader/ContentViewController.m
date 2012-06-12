@@ -31,14 +31,10 @@
     
     // load from data source
     [[NSUserDefaults standardUserDefaults] synchronize];
-    NSString *myTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"title"];
-    NSString *myUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"url"];
-    
-    NSLog(@"%@: %@", myTitle, myUrl);
-    navBar.title = myTitle;
-    
+
     // load the page
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:[NSURL URLWithString:myUrl]];
+    NSURL *url = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"url"]];
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 	[wView loadRequest:requestObj];
 	wView.scalesPageToFit = YES;
 }
