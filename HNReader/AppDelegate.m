@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PostsViewController.h"
 
 @implementation AppDelegate
 
@@ -18,6 +19,12 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    nc = [[UINavigationController alloc] init];
+    PostsViewController *pvc = [[PostsViewController alloc] init];
+    [nc pushViewController:pvc animated:YES];
+    [self.window addSubview:nc.view];
+    
     return YES;
 }
 
