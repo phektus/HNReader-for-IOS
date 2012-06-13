@@ -14,7 +14,6 @@
 
 @implementation ContentViewController
 @synthesize wView;
-@synthesize navBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,7 +41,6 @@
 - (void)viewDidUnload
 {
     [self setWView:nil];
-    [self setNavBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -51,12 +49,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (IBAction)dismiss:(id)sender 
-{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"url"];
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

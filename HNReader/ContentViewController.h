@@ -13,8 +13,5 @@
 }
 
 @property (strong, nonatomic) IBOutlet UIWebView *wView;
-@property (strong, nonatomic) IBOutlet UINavigationItem *navBar;
-
-- (IBAction)dismiss:(id)sender;
 
 @end

@@ -98,7 +98,8 @@
     
     // load the view
     ContentViewController *cvc = [[ContentViewController alloc] init];
-    [self presentModalViewController:cvc animated:YES];
+    //[self presentModalViewController:cvc animated:YES];
+    [(UINavigationController *)self.parentViewController pushViewController:cvc animated:YES];
 }
 
 @end
