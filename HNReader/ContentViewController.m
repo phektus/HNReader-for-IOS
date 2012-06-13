@@ -32,7 +32,8 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     // load the page
-    NSURL *url = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"url"]];
+    NSDictionary *post = [[NSUserDefaults standardUserDefaults] objectForKey:@"post"];
+    NSURL *url = [NSURL URLWithString:[post objectForKey:@"url"]];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 	[wView loadRequest:requestObj];
 	wView.scalesPageToFit = YES;

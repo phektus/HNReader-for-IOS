@@ -94,11 +94,12 @@
 {
     // save the url data
     NSMutableDictionary *post = [posts objectAtIndex:indexPath.row];
-    [[NSUserDefaults standardUserDefaults] setObject:[post objectForKey:@"url"] forKey:@"url"];
+    [[NSUserDefaults standardUserDefaults] setObject:post forKey:@"post"];
     
     // load the view
     ContentViewController *cvc = [[ContentViewController alloc] init];
     //[self presentModalViewController:cvc animated:YES];
+    cvc.navigationItem.title = [post objectForKey:@"title"];
     [(UINavigationController *)self.parentViewController pushViewController:cvc animated:YES];
 }
 
