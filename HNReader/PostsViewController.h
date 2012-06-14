@@ -12,4 +12,6 @@
     NSMutableArray *posts;
 }
 
+- (id)initWithSourceURL:(NSString *)sourceURL;
+
 @end

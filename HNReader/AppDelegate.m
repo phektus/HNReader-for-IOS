@@ -23,10 +23,25 @@
     nc = [[UINavigationController alloc] init];
     [nc.navigationBar setTintColor:[UIColor orangeColor]];
     
-    PostsViewController *pvc = [[PostsViewController alloc] init];
-    pvc.navigationItem.title = @"Hacker News";
+    UITabBarController *tc = [[UITabBarController alloc] init];
+    tc.navigationItem.title = @"Hacker News";
     
-    [nc pushViewController:pvc animated:YES];
+    PostsViewController *pvcFront = [[PostsViewController alloc] initWithSourceURL:@"http://api.ihackernews.com/page"];
+    pvcFront.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Top Items" image:nil tag:0];
+        
+    PostsViewController *pvcNewest = [[PostsViewController alloc] initWithSourceURL:@"http://api.ihackernews.com/newest"];
+    pvcNewest.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Newest" image:nil tag:1];
+    
+    PostsViewController *pvcAsk = [[PostsViewController alloc] initWithSourceURL:@"http://api.ihackernews.com/ask"];
+    pvcAsk.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Ask" image:nil tag:2];
+    
+    PostsViewController *pvcJobs = [[PostsViewController alloc] initWithSourceURL:@"http://api.ihackernews.com/jobs"];
+    pvcJobs.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Jobs" image:nil tag:3];
+    
+    [tc setViewControllers:[NSArray arrayWithObjects:pvcFront, pvcNewest, pvcAsk, pvcJobs, nil ] animated:YES];
+    
+    //[nc pushViewController:pvc animated:YES];
+    [nc pushViewController:tc animated:YES];
     [self.window addSubview:nc.view];
     
     return YES;

@@ -12,15 +12,26 @@
 
 @interface PostsViewController ()
 
+@property (nonatomic, strong) NSString *sourceURL;
+
 @end
 
 @implementation PostsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize sourceURL = _sourceURL;
+
+- (NSString *)sourceURL {
+    if (_sourceURL == nil) {
+        _sourceURL = @"http://api.ihackernews.com/page";
+    }
+    return _sourceURL;
+}
+
+- (id)initWithSourceURL:(NSString *)sourceURL
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        self.sourceURL = sourceURL;
     }
     return self;
 }
@@ -33,7 +44,8 @@
     
     // retrieve the titles
     SBJsonParser *parser = [[SBJsonParser alloc] init];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.ihackernews.com/page"]];
+    //NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://api.ihackernews.com/page"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.sourceURL]];
     NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSString *json_string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
     NSDictionary *json_data = [parser objectWithString:json_string error:nil];
@@ -46,6 +58,8 @@
         [post setObject:[item objectForKey:@"url"] forKey:@"url"];
         [posts addObject:post];
     }
+    
+    NSLog(@"Source URL: %@", self.sourceURL);
 }
 
 - (void)viewDidUnload
@@ -98,7 +112,6 @@
     
     // load the view
     ContentViewController *cvc = [[ContentViewController alloc] init];
-    //[self presentModalViewController:cvc animated:YES];
     cvc.navigationItem.title = [post objectForKey:@"title"];
     [(UINavigationController *)self.parentViewController pushViewController:cvc animated:YES];
 }
