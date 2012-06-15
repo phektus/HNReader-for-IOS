@@ -25,18 +25,36 @@
     return _sourceURL;
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        spinner = [[UIActivityIndicatorView alloc] 
+                                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.center = CGPointMake(160, 150);
+        spinner.hidesWhenStopped = YES;
+    }
+    
+    return self;
+}
+
 - (id)initWithSourceURL:(NSString *)sourceURL
 {
     self = [super init];
-    if (self) {
-        self.sourceURL = sourceURL;
-    }
+    if (self) self.sourceURL = sourceURL;
     return self;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    [super viewDidLoad];    
+    [self.view addSubview:spinner];
+    [spinner startAnimating];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     posts = [[NSMutableArray alloc] init];
     
@@ -49,12 +67,12 @@
     NSDictionary *json_data = [parser objectWithString:json_string error:nil];
     
     // update posts and links array
-
+    
     for (NSDictionary *item in [json_data objectForKey:@"items"])
     {
         NSLog(@"Processing: %@", [item objectForKey:@"title"]);
         NSMutableDictionary *post = [[NSMutableDictionary alloc] init];
-            
+        
         NSString *title = [item objectForKey:@"title"];
         NSLog(@"Title: %@", title);
         if (self.tabBarItem.tag == 2) {
@@ -73,7 +91,10 @@
         [post setObject:[item objectForKey:@"url"] forKey:@"url"];
         [posts addObject:post];
     }
+    
     NSLog(@"Source URL: %@", self.sourceURL);
+    [self.tableView reloadData];
+    [spinner stopAnimating];
 }
 
 - (void)viewDidUnload

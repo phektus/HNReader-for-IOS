@@ -10,6 +10,7 @@
 
 @interface ContentViewController : UIViewController {
     IBOutlet UIWebView *wView;
+    UIActivityIndicatorView *spinner;
 }
 
 @property (strong, nonatomic) IBOutlet UIWebView *wView;

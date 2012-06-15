@@ -10,6 +10,7 @@
 
 @interface PostsViewController : UITableViewController {
     NSMutableArray *posts;
+    UIActivityIndicatorView *spinner;
 }
 
 - (id)initWithSourceURL:(NSString *)sourceURL;

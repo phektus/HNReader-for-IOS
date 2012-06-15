@@ -19,7 +19,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        spinner = [[UIActivityIndicatorView alloc] 
+                   initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.center = CGPointMake(160, 150);
+        spinner.hidesWhenStopped = YES;
     }
     return self;
 }
@@ -27,6 +30,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view addSubview:spinner];
+    [spinner startAnimating];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     // load from data source
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -37,6 +47,8 @@
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 	[wView loadRequest:requestObj];
 	wView.scalesPageToFit = YES;
+    
+    [spinner stopAnimating];
 }
 
 - (void)viewDidUnload
