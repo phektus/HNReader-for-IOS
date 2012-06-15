@@ -13,25 +13,31 @@
 @interface PostsViewController ()
 
 @property (nonatomic, strong) NSString *sourceURL;
+@property (nonatomic, strong) NSString *sourceType;
 
 @end
 
 @implementation PostsViewController
 
 @synthesize sourceURL = _sourceURL;
+@synthesize sourceType = _sourceType;
 
 - (NSString *)sourceURL {
-    if (_sourceURL == nil) {
-        _sourceURL = @"http://api.ihackernews.com/page";
-    }
+    if (_sourceURL == nil) _sourceURL = @"http://api.ihackernews.com/page";
     return _sourceURL;
 }
 
-- (id)initWithSourceURL:(NSString *)sourceURL
+- (NSString *)sourceType {
+    if (_sourceType == nil) _sourceType = @"ihackernews";
+    return _sourceType;
+}
+
+- (id)initWithSourceURL:(NSString *)sourceURL sourceType:(NSString *)sourceType
 {
     self = [super init];
     if (self) {
         self.sourceURL = sourceURL;
+        self.sourceType = sourceType;
     }
     return self;
 }
@@ -51,12 +57,40 @@
     NSDictionary *json_data = [parser objectWithString:json_string error:nil];
     
     // update posts and links array
-    for (NSDictionary *item in [json_data objectForKey:@"items"])
-    {
-        NSMutableDictionary *post = [[NSMutableDictionary alloc] init];
-        [post setObject:[item objectForKey:@"title"] forKey:@"title"];
-        [post setObject:[item objectForKey:@"url"] forKey:@"url"];
-        [posts addObject:post];
+    if (self.sourceType == @"ihackernews") {
+        for (NSDictionary *item in [json_data objectForKey:@"items"])
+        {
+            NSMutableDictionary *post = [[NSMutableDictionary alloc] init];
+            [post setObject:[item objectForKey:@"title"] forKey:@"title"];
+            [post setObject:[item objectForKey:@"url"] forKey:@"url"];
+            [posts addObject:post];
+        }
+    } else if (self.sourceType == @"hnsearch") {
+        for (NSDictionary *item in [json_data objectForKey:@"results"])
+        {
+            NSDictionary *mainItem = [item objectForKey:@"item"];
+            NSMutableDictionary *post = [[NSMutableDictionary alloc] init];
+            
+            // fix the title
+            NSString *title = [mainItem objectForKey:@"title"];
+            NSLog(@"Title: %@", title);
+            if (self.tabBarItem.tag == 2) {
+                // further processing for ask hn
+                if ([title isEqualToString:@"Ask HN:"] || [title isEqualToString:@"Ask HN"]) {
+                    // just show the text for empty title
+                    title = [mainItem objectForKey:@"text"];
+                } else {
+                    title = [title stringByReplacingOccurrencesOfString:@"Ask HN: " withString:@""];
+                } 
+            }
+            // trim
+            title = [title stringByTrimmingCharactersInSet:
+                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            [post setObject:title forKey:@"title"];
+            
+            [post setObject:[mainItem objectForKey:@"url"] forKey:@"url"];
+            [posts addObject:post];
+        }
     }
     
     NSLog(@"Source URL: %@", self.sourceURL);
@@ -113,7 +147,7 @@
     // load the view
     ContentViewController *cvc = [[ContentViewController alloc] init];
     cvc.navigationItem.title = [post objectForKey:@"title"];
-    [(UINavigationController *)self.parentViewController pushViewController:cvc animated:YES];
+    [(UINavigationController *)self.parentViewController.parentViewController pushViewController:cvc animated:YES];
 }
 
 @end
