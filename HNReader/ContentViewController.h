@@ -13,6 +13,4 @@
     UIActivityIndicatorView *spinner;
 }
 
-@property (strong, nonatomic) IBOutlet UIWebView *wView;
-
 @end

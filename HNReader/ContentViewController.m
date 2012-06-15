@@ -13,7 +13,6 @@
 @end
 
 @implementation ContentViewController
-@synthesize wView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,7 +30,7 @@
 {
     [super viewDidLoad];
     [self.view addSubview:spinner];
-    [spinner startAnimating];
+    [spinner startAnimating];  
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -47,13 +46,10 @@
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 	[wView loadRequest:requestObj];
 	wView.scalesPageToFit = YES;
-    
-    [spinner stopAnimating];
 }
 
 - (void)viewDidUnload
 {
-    [self setWView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -62,6 +58,11 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSLog(@"web view finished loading");
+    [spinner stopAnimating];  
 }
 
 @end
