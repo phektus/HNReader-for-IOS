@@ -26,18 +26,16 @@
     UITabBarController *tc = [[UITabBarController alloc] init];
     tc.navigationItem.title = @"Hacker News";
     
-    PostsViewController *pvcFront = [[PostsViewController alloc] initWithSourceURL:@"http://api.ihackernews.com/page" sourceType:@"ihackernews"];
-    pvcFront.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Top Items" image:nil tag:0];
-        
-    PostsViewController *pvcNewest = [[PostsViewController alloc] initWithSourceURL:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?sort_by=score&filter[fields][type]=submission" sourceType:@"hnsearch"];
-    pvcNewest.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Newest" image:nil tag:1];
+    PostsViewController *pvcFront = [[PostsViewController alloc] initWithSourceURL:@"http://hndroidapi.appspot.com/news/format/json/page/?appid=hnreader"];
+    pvcFront.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemTopRated tag:0];
     
-    PostsViewController *pvcAsk = [[PostsViewController alloc] initWithSourceURL:@"http://api.thriftdb.com/api.hnsearch.com/items/_search?q=ask%20hn&sort_by=score&filter[fields][type][]=submission&pretty_print=true" sourceType:@"hnsearch"];
+    PostsViewController *pvcNewest = [[PostsViewController alloc] initWithSourceURL:@"http://hndroidapi.appspot.com/newest/format/json/page/?appid=hnreader"];
+    pvcNewest.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemMostRecent tag:1];
+    
+    PostsViewController *pvcAsk = [[PostsViewController alloc] initWithSourceURL:@"http://hndroidapi.appspot.com/ask/format/json/page/?appid=hnreader"];
     pvcAsk.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Ask" image:nil tag:2];
     
     [tc setViewControllers:[NSArray arrayWithObjects:pvcFront, pvcNewest, pvcAsk, nil ] animated:YES];
-    
-    //[nc pushViewController:pvc animated:YES];
     [nc pushViewController:tc animated:YES];
     [self.window addSubview:nc.view];
     
